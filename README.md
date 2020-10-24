@@ -1,6 +1,6 @@
 # docker-jupyter-keras-tools
 
-* This project is a fork of of this [repository](https://github.com/windj007/docker-jupyter-keras-tools)  
+* This project is a fork of this [repository](https://github.com/windj007/docker-jupyter-keras-tools)  
 
 It should have been named "Jupyter for Deep Learning, Natural Language Processing and common Data Mining".
 
@@ -8,9 +8,6 @@ Dockerized version of Jupyter with installed Keras, TensorFlow, Theano, Sklearn,
 
 Versions:
 * latest tag - python 3.7.7 + cuda 10.2 CuDNNv7 - master branch
-* __8.0 tag - python 2.7 + cuda 8.0 CuDNNv5 - cuda8.0 branch (limited support)__
-* __7.5 tag - python 2.7 + cuda 7.5 CuDNNv5 - cuda7.5 branch (unsupported!)__
-* __6.5 tag - python 2.7 + cuda 6.5 - cuda6.5 branch (unsupported!)__
 
 ## Run
 
