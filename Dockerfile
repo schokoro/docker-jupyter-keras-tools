@@ -25,33 +25,40 @@ RUN pyenv install 3.7.7
 RUN pyenv global 3.7.7
 
 RUN pip  install -U pip
-RUN python -m pip install -U cython
-RUN python -m pip install -U numpy # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
+RUN python -m pip install -U cython && python -c "import shutil ; shutil.rmtree('/root/.cache')"
 
-RUN python -m pip install scipy pandas nltk gensim sklearn tensorflow-gpu spacy flair allennlp\
-        annoy keras ujson line_profiler tables sharedmem matplotlib torch torchvision hydra-core \
-        torchtext sklearn_crfsuite pytorch-transformers fire pyprind seqeval
+RUN python -m pip install -U numpy && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+ # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
+
+RUN python -m pip install scipy pandas nltk gensim sklearn tensorflow-gpu spacy flair allennlp==0.9.0 transformers==3.0.1\
+        annoy keras ujson line_profiler tables sharedmem matplotlib torch torchvision hydra-core==0.11.3 \
+        torchtext sklearn_crfsuite pytorch-transformers fire pyprind seqeval && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+
 
 RUN python -m nltk.downloader popular && python -m spacy download en_core_web_sm && python -m spacy download xx_ent_wiki_sm
 
-RUN pip install git+https://github.com/pybind/pybind11.git 
-RUN pip install nmslib
+RUN pip install git+https://github.com/pybind/pybind11.git  && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+
+RUN pip install nmslib && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+
 RUN python -m pip install -U \
         h5py lxml git+https://github.com/openai/gym sacred git+https://github.com/marcotcr/lime \
-        plotly pprofile mlxtend fitter mpld3 \
+        plotly pprofile mlxtend fitter mpld3 scikit-learn==0.22.2.post1\
         git+https://github.com/facebookresearch/fastText.git \
         imbalanced-learn forestci category_encoders hdbscan seaborn networkx joblib eli5 \
         pydot graphviz dask[complete] opencv-python keras-vis pandas-profiling bokeh\
         git+https://github.com/IINemo/libact/#egg=libact \
         git+https://github.com/IINemo/active_learning_toolbox \
         scikit-image pymorphy2[fast] pymorphy2-dicts-ru tqdm tensorboardX patool \
-        skorch fastcluster \
-        xgboost imgaug grpcio git+https://github.com/IINemo/isanlp.git
+        skorch fastcluster wandb\
+        xgboost imgaug grpcio git+https://github.com/IINemo/isanlp.git && python -c "import shutil ; shutil.rmtree('/root/.cache')"
 
-RUN pip install -U pymystem3 # && python -c "import pymystem3 ; pymystem3.Mystem()"
+RUN pip install -U pymystem3 # && python -c "import pymystem3 ; pymystem3.Mystem()" && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+
 
 RUN python -m pip install -U jupyter jupyterlab xeus-python \
-        jupyter_nbextensions_configurator jupyter_contrib_nbextensions==0.2.4
+        jupyter_nbextensions_configurator jupyter_contrib_nbextensions==0.2.4 && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+
 
 RUN pyenv rehash
 
