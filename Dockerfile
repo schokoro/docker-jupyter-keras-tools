@@ -50,7 +50,7 @@ RUN python -m pip install -U \
         git+https://github.com/IINemo/libact/#egg=libact \
         git+https://github.com/IINemo/active_learning_toolbox \
         scikit-image pymorphy2[fast] pymorphy2-dicts-ru tqdm tensorboardX patool \
-        skorch fastcluster wandb\
+        skorch fastcluster wandb pandarallel \
         xgboost imgaug grpcio git+https://github.com/IINemo/isanlp.git && python -c "import shutil ; shutil.rmtree('/root/.cache')"
 
 RUN pip install -U pymystem3 # && python -c "import pymystem3 ; pymystem3.Mystem()" && python -c "import shutil ; shutil.rmtree('/root/.cache')"
