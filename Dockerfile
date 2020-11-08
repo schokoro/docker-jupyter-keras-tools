@@ -28,15 +28,15 @@ RUN pip  install -U pip
 
 RUN python -m pip install -U cython && \ 
         python -m pip install -U numpy && \ 
-        python -m pip install allennlp==0.9.0 annoy bigartm bokeh category_encoders dask[complete] eli5 \ 
-        fastcluster fire fitter flair forestci gensim graphviz grpcio h5py hdbscan hydra-core==0.11.3 \ 
-        imbalanced-learn imgaug install joblib jupyter jupyter_contrib_nbextensions==0.2.4 \ 
+        python -m pip install allennlp annoy bigartm bokeh category_encoders dask[complete] eli5 \ 
+        fastcluster fire fitter flair forestci gensim graphviz grpcio h5py hdbscan hydra-core \ 
+        imbalanced-learn imgaug install joblib jupyter jupyter_contrib_nbextensions \ 
         jupyter_nbextensions_configurator jupyterlab keras keras-vis line_profiler lxml matplotlib \ 
         mlxtend mpld3 networkx nltk nmslib opencv-python pandarallel pandas pandas-profiling patool \ 
         plotly pprofile pydot pymorphy2-dicts-ru pymorphy2[fast] pymystem3 pyprind pytorch-transformers \ 
-        sacred scikit-image scikit-learn==0.22.2.post1 scipy seaborn seqeval sharedmem sklearn \ 
+        sacred scikit-image scikit-learn scipy seaborn seqeval sharedmem sklearn \ 
         sklearn_crfsuite skorch spacy tables tensorboardX tensorflow-gpu torch torchtext torchvision \ 
-        tqdm transformers==3.0.1 ujson wandb xeus-python xgboost \ 
+        tqdm transformers ujson wandb xeus-python xgboost \ 
         git+https://github.com/IINemo/active_learning_toolbox git+https://github.com/IINemo/isanlp.git \ 
         git+https://github.com/IINemo/libact/#egg=libact git+https://github.com/facebookresearch/fastText.git \ 
         git+https://github.com/marcotcr/lime git+https://github.com/openai/gym git+https://github.com/pybind/pybind11.git && \ 
