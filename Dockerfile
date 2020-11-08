@@ -2,21 +2,19 @@ FROM nvidia/cuda:10.2-devel-ubuntu18.04
 
 LABEL maintainer="Roman Suvorov windj007@gmail.com"
 
-RUN apt-get clean && apt-get update
+RUN apt-get clean && apt-get update && apt-get install -yqq curl && apt-get clean
 
-RUN apt-get install -yqq curl
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 
 RUN ln -fs /usr/share/zoneinfo/Russia/Moscow /etc/localtime
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y install tzdata
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install -yqq build-essential libbz2-dev libssl-dev libreadline-dev \
-                         libsqlite3-dev tk-dev libpng-dev libfreetype6-dev git \
-                         cmake wget gfortran libatlas-base-dev  libffi-dev nano\
-                         libatlas3-base libhdf5-dev libxml2-dev libxslt-dev  \
-                         zlib1g-dev pkg-config graphviz libblas-dev liblapacke-dev  liblapack-dev\
-                         locales nodejs && apt-get clean
+# https://github.com/pyenv/pyenv/wiki#suggested-build-environment see at the required dependencies for pyenv
+RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz libatlas-base-dev \
+        libatlas3-base libblas-dev libbz2-dev libffi-dev libfreetype6-dev libhdf5-dev liblapack-dev \
+        liblapacke-dev liblzma-dev libncurses5-dev libpng-dev libreadline-dev libsqlite3-dev \
+        libssl-dev libxml2-dev libxmlsec1-dev libxslt-dev llvm locales make nano nodejs pkg-config \
+        tk-dev tmux tzdata wget xz-utils zlib1g-dev  && apt-get clean
 
 RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV PYENV_ROOT /root/.pyenv
@@ -25,42 +23,30 @@ RUN pyenv install 3.7.7
 RUN pyenv global 3.7.7
 
 RUN pip  install -U pip
-RUN python -m pip install -U cython && python -c "import shutil ; shutil.rmtree('/root/.cache')"
 
-RUN python -m pip install -U numpy && python -c "import shutil ; shutil.rmtree('/root/.cache')"
- # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
+# thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
 
-RUN python -m pip install scipy pandas nltk gensim sklearn tensorflow-gpu spacy flair allennlp==0.9.0 transformers==3.0.1\
-        annoy keras ujson line_profiler tables sharedmem matplotlib torch torchvision hydra-core==0.11.3 \
-        torchtext sklearn_crfsuite pytorch-transformers fire pyprind seqeval && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+RUN python -m pip install -U cython && \ 
+        python -m pip install -U numpy && \ 
+        python -m pip install allennlp==0.9.0 annoy bigartm bokeh category_encoders dask[complete] eli5 \ 
+        fastcluster fire fitter flair forestci gensim graphviz grpcio h5py hdbscan hydra-core==0.11.3 \ 
+        imbalanced-learn imgaug install joblib jupyter jupyter_contrib_nbextensions==0.2.4 \ 
+        jupyter_nbextensions_configurator jupyterlab keras keras-vis line_profiler lxml matplotlib \ 
+        mlxtend mpld3 networkx nltk nmslib opencv-python pandarallel pandas pandas-profiling patool \ 
+        plotly pprofile pydot pymorphy2-dicts-ru pymorphy2[fast] pymystem3 pyprind pytorch-transformers \ 
+        sacred scikit-image scikit-learn==0.22.2.post1 scipy seaborn seqeval sharedmem sklearn \ 
+        sklearn_crfsuite skorch spacy tables tensorboardX tensorflow-gpu torch torchtext torchvision \ 
+        tqdm transformers==3.0.1 ujson wandb xeus-python xgboost \ 
+        git+https://github.com/IINemo/active_learning_toolbox git+https://github.com/IINemo/isanlp.git \ 
+        git+https://github.com/IINemo/libact/#egg=libact git+https://github.com/facebookresearch/fastText.git \ 
+        git+https://github.com/marcotcr/lime git+https://github.com/openai/gym git+https://github.com/pybind/pybind11.git && \ 
+        python -c "import shutil ; shutil.rmtree('/root/.cache')" && pyenv rehash
 
+RUN python -c "import pymystem3 ; pymystem3.Mystem()"  &&  \ 
+        python -m nltk.downloader popular && \ 
+        python -m spacy download en_core_web_sm && \ 
+        python -m spacy download xx_ent_wiki_sm
 
-RUN python -m nltk.downloader popular && python -m spacy download en_core_web_sm && python -m spacy download xx_ent_wiki_sm
-
-RUN pip install git+https://github.com/pybind/pybind11.git  && python -c "import shutil ; shutil.rmtree('/root/.cache')"
-
-RUN pip install nmslib && python -c "import shutil ; shutil.rmtree('/root/.cache')"
-
-RUN python -m pip install -U \
-        h5py lxml git+https://github.com/openai/gym sacred git+https://github.com/marcotcr/lime \
-        plotly pprofile mlxtend fitter mpld3 scikit-learn==0.22.2.post1\
-        git+https://github.com/facebookresearch/fastText.git \
-        imbalanced-learn forestci category_encoders hdbscan seaborn networkx joblib eli5 \
-        pydot graphviz dask[complete] opencv-python keras-vis pandas-profiling bokeh\
-        git+https://github.com/IINemo/libact/#egg=libact \
-        git+https://github.com/IINemo/active_learning_toolbox \
-        scikit-image pymorphy2[fast] pymorphy2-dicts-ru tqdm tensorboardX patool \
-        skorch fastcluster wandb pandarallel \
-        xgboost imgaug grpcio git+https://github.com/IINemo/isanlp.git && python -c "import shutil ; shutil.rmtree('/root/.cache')"
-
-RUN pip install -U pymystem3 # && python -c "import pymystem3 ; pymystem3.Mystem()" && python -c "import shutil ; shutil.rmtree('/root/.cache')"
-
-
-RUN python -m pip install -U jupyter jupyterlab xeus-python \
-        jupyter_nbextensions_configurator jupyter_contrib_nbextensions==0.2.4 && python -c "import shutil ; shutil.rmtree('/root/.cache')"
-
-
-RUN pyenv rehash
 
 RUN jupyter contrib nbextension install --system && \
     jupyter nbextensions_configurator enable --system && \
