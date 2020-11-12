@@ -35,7 +35,7 @@ RUN python -m pip install -U cython && \
         plotly pprofile pydot pymorphy2-dicts-ru pymorphy2[fast] pymystem3 pyprind pytorch-transformers \ 
         sacred scikit-image scikit-learn scipy seaborn seqeval sharedmem sklearn \ 
         sklearn_crfsuite skorch spacy tables tensorboardX tensorflow-gpu torch torchtext torchvision \ 
-        tqdm transformers ujson wandb xeus-python xgboost \ 
+        tqdm transformers ujson xeus-python xgboost \ 
         git+https://github.com/IINemo/active_learning_toolbox git+https://github.com/IINemo/isanlp.git \ 
         git+https://github.com/IINemo/libact/#egg=libact git+https://github.com/facebookresearch/fastText.git \ 
         git+https://github.com/marcotcr/lime git+https://github.com/openai/gym git+https://github.com/pybind/pybind11.git && \ 

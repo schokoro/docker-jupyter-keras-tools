@@ -91,7 +91,7 @@ You may want to run this container on a server which is accessible via Internet.
 
 ### 1. Create certificates
 
-Use openssl to generate a self-signed certificate. If you always forget how to do this (like I do), you can use a simple utility: https://github.com/schokoro/ssl-utils
+Use openssl to generate a self-signed certificate. If you always forget how to do this (like I do), [you can use a simple utility](https://github.com/windj007/ssl-utils)
 
 
 ### 2. Make a hashed password
