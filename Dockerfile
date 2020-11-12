@@ -42,6 +42,7 @@ RUN python -m pip install -U cython && \
         python -c "import shutil ; shutil.rmtree('/root/.cache')" 
 
 RUN pip install deeppavlov --no-deps && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+
 RUN python -c "import pymystem3 ; pymystem3.Mystem()"  &&  \ 
         python -m nltk.downloader popular && \ 
         python -m spacy download en_core_web_sm && \ 
