@@ -16,7 +16,7 @@ RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz libatl
         libssl-dev libxml2-dev libxmlsec1-dev libxslt-dev llvm locales make nano nodejs pkg-config \
         tk-dev tmux tzdata wget xz-utils zlib1g-dev  && apt-get clean
 
-ENV PYENV_ROOT /root/.pyenv
+ENV PYENV_ROOT /opt/.pyenv
 RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV PATH /opt/.pyenv/shims:/opt/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN pyenv install 3.7.7
