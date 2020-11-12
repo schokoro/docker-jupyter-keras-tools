@@ -16,16 +16,15 @@ RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz libatl
         libssl-dev libxml2-dev libxmlsec1-dev libxslt-dev llvm locales make nano nodejs pkg-config \
         tk-dev tmux tzdata wget xz-utils zlib1g-dev  && apt-get clean
 
-RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV PYENV_ROOT /root/.pyenv
-ENV PATH /root/.pyenv/shims:/root/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+ENV PATH /opt/.pyenv/shims:/opt/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN pyenv install 3.7.7
 RUN pyenv global 3.7.7
 
 RUN pip  install -U pip
 
 # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
-
 RUN python -m pip install -U cython && \ 
         python -m pip install -U numpy && \ 
         python -m pip install allennlp annoy bigartm bokeh category_encoders dask[complete] eli5 \ 
@@ -40,13 +39,15 @@ RUN python -m pip install -U cython && \
         git+https://github.com/IINemo/active_learning_toolbox git+https://github.com/IINemo/isanlp.git \ 
         git+https://github.com/IINemo/libact/#egg=libact git+https://github.com/facebookresearch/fastText.git \ 
         git+https://github.com/marcotcr/lime git+https://github.com/openai/gym git+https://github.com/pybind/pybind11.git && \ 
-        python -c "import shutil ; shutil.rmtree('/root/.cache')" && pyenv rehash
+        python -c "import shutil ; shutil.rmtree('/root/.cache')" 
 
+RUN pip install deeppavlov --no-deps && python -c "import shutil ; shutil.rmtree('/root/.cache')"
 RUN python -c "import pymystem3 ; pymystem3.Mystem()"  &&  \ 
         python -m nltk.downloader popular && \ 
         python -m spacy download en_core_web_sm && \ 
         python -m spacy download xx_ent_wiki_sm
 
+RUN pyenv rehash
 
 RUN jupyter contrib nbextension install --system && \
     jupyter nbextensions_configurator enable --system && \
