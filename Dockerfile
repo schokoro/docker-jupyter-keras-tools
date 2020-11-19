@@ -10,7 +10,7 @@ RUN ln -fs /usr/share/zoneinfo/Russia/Moscow /etc/localtime
 ENV DEBIAN_FRONTEND noninteractive
 
 # https://github.com/pyenv/pyenv/wiki#suggested-build-environment see at the required dependencies for pyenv
-RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz libatlas-base-dev \
+RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz htop libatlas-base-dev \
         libatlas3-base libblas-dev libbz2-dev libffi-dev libfreetype6-dev libhdf5-dev liblapack-dev \
         liblapacke-dev liblzma-dev libncurses5-dev libpng-dev libreadline-dev libsqlite3-dev \
         libssl-dev libxml2-dev libxmlsec1-dev libxslt-dev llvm locales make nano nodejs pkg-config \
