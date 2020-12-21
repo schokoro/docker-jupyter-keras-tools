@@ -25,20 +25,8 @@ RUN pyenv global 3.7.7
 RUN pip  install -U pip
 
 # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
-RUN python -m pip install -U cython && \ 
-        python -m pip install -U numpy && \ 
-        python -m pip install allennlp annoy bigartm bokeh category_encoders dask[complete] eli5 \ 
-        fastcluster fire fitter flair forestci gensim graphviz grpcio h5py hdbscan hydra-core \ 
-        imbalanced-learn imgaug install joblib jupyter jupyter_contrib_nbextensions \ 
-        jupyter_nbextensions_configurator jupyterlab keras keras-vis line_profiler lxml matplotlib \ 
-        mlxtend mpld3 networkx nltk nmslib opencv-python pandarallel pandas pandas-profiling patool \ 
-        plotly pprofile pydot pymorphy2-dicts-ru pymorphy2[fast] pymystem3 pyprind pytorch-transformers \ 
-        sacred scikit-image scikit-learn scipy seaborn seqeval sharedmem sklearn \ 
-        sklearn_crfsuite skorch spacy tables tensorboardX tensorflow-gpu torch torchtext torchvision \ 
-        tqdm transformers ujson xeus-python xgboost \ 
-        git+https://github.com/IINemo/active_learning_toolbox git+https://github.com/IINemo/isanlp.git \ 
-        git+https://github.com/IINemo/libact/#egg=libact git+https://github.com/facebookresearch/fastText.git \ 
-        git+https://github.com/marcotcr/lime git+https://github.com/openai/gym git+https://github.com/pybind/pybind11.git && \ 
+COPY requirements.txt requirements.txt
+RUN python -m pip install cython numpy&& python -m pip install -r requirements.txt && \ 
         python -c "import shutil ; shutil.rmtree('/root/.cache')" 
 
 RUN pip install deeppavlov --no-deps && python -c "import shutil ; shutil.rmtree('/root/.cache')"
