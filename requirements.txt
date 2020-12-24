@@ -47,6 +47,7 @@ pymorphy2-dicts-ru
 pymorphy2[fast]
 pymystem3
 pyprind
+pytorch-lightning
 pytorch-transformers
 sacred
 scikit-image
