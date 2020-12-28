@@ -72,7 +72,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-EXPOSE 8888
+EXPOSE 8988
 VOLUME ["/notebook", "/jupyter/certs"]
 WORKDIR /notebook
 
@@ -84,5 +84,5 @@ COPY hashpwd.py /hashpwd.py
 ENV JUPYTER_CONFIG_DIR="/jupyter"
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD [ "jupyter", "lab", "--ip=0.0.0.0", "--allow-root" ]
-EXPOSE 8888
+CMD [ "jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--port=8988"]
+EXPOSE 8988
