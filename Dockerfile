@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.0-devel-ubuntu18.04
+FROM nvidia/cuda:10.0-devel-ubuntu18.04
 
 LABEL maintainer="Roman Suvorov windj007@gmail.com"
 
@@ -26,10 +26,9 @@ RUN pip  install -U pip
 
 # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
 COPY requirements.txt requirements.txt
-RUN python -m pip install cython numpy&& python -m pip install -r requirements.txt && \ 
-        python -c "import shutil ; shutil.rmtree('/root/.cache')" 
+RUN python -m pip install cython numpy&& python -m pip install -r requirements.txt && rm -r /root/.cache
 
-RUN pip install deeppavlov --no-deps && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+RUN pip install deeppavlov --no-deps && rm -r /root/.cache
 
 RUN python -c "import pymystem3 ; pymystem3.Mystem()"  &&  \ 
         python -m nltk.downloader popular && \ 
