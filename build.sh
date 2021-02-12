@@ -1,3 +1,3 @@
 #!/bin/bash
-docker build -t local/jupyter-keras-tools:cuda10.0 ./
+docker build -t schokoro/jupyter-keras-tools:cuda10.0 ./
 
