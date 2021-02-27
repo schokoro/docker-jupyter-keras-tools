@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.0-devel-ubuntu18.04
+FROM nvidia/cuda:11.0-devel-ubuntu20.04
 
 LABEL maintainer="Roman Suvorov windj007@gmail.com"
 
