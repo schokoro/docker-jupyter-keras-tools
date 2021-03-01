@@ -61,7 +61,7 @@ skorch
 spacy
 tables
 tensorboardX
-tensorflow-gpu
+tensorflow
 torch==1.6.0
 torchtext
 torchvision==0.7.0
@@ -70,9 +70,9 @@ transformers==3.0.1
 ujson
 xeus-python
 xgboost
-git+https://github.com/IINemo/active_learning_toolbox
+git+https://github.com/IINemo/active_learning_toolbox.git@seq
 git+https://github.com/IINemo/isanlp.git
-git+https://github.com/IINemo/libact/#egg=libact
+git+https://github.com/IINemo/libact.git@seq
 git+https://github.com/facebookresearch/fastText.git
 git+https://github.com/marcotcr/lime
 git+https://github.com/openai/gym
