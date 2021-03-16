@@ -61,7 +61,7 @@ skorch
 spacy
 tables
 tensorboardX
-tensorflow
+tensorflow==1.13.1
 torch==1.6.0
 torchtext
 torchvision==0.7.0
