@@ -19,17 +19,17 @@ RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz htop l
 ENV PYENV_ROOT /opt/.pyenv
 RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV PATH /opt/.pyenv/shims:/opt/.pyenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-RUN pyenv install 3.7.7
-RUN pyenv global 3.7.7
+RUN pyenv install 3.8.10
+RUN pyenv global 3.8.10
 
 RUN pip  install -U pip
 
 # thanks to libatlas-base-dev (base! not libatlas-dev), it will link to atlas
 COPY requirements.txt requirements.txt
-RUN python -m pip install cython numpy&& python -m pip install -r requirements.txt && \ 
-        python -c "import shutil ; shutil.rmtree('/root/.cache')" 
+RUN python -m pip install cython numpy&&pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html&& \
+	 python -m pip install -r requirements.txt && rm -rf /root/.cache 
 
-RUN pip install deeppavlov --no-deps && python -c "import shutil ; shutil.rmtree('/root/.cache')"
+#RUN pip install deeppavlov --no-deps && python -c "import shutil ; shutil.rmtree('/root/.cache')"
 
 RUN python -c "import pymystem3 ; pymystem3.Mystem()"  &&  \ 
         python -m nltk.downloader popular && \ 
@@ -72,7 +72,6 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
-EXPOSE 8988
 VOLUME ["/notebook", "/jupyter/certs"]
 WORKDIR /notebook
 
