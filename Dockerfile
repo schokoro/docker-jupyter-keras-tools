@@ -11,8 +11,8 @@ RUN ln -fs /usr/share/zoneinfo/Russia/Moscow /etc/localtime
 ENV DEBIAN_FRONTEND noninteractive
 
 # https://github.com/pyenv/pyenv/wiki#suggested-build-environment see at the required dependencies for pyenv
-RUN apt-get install -yqq build-essential cmake curl gfortran git graphviz htop libatlas-base-dev \
-        libatlas3-base libblas-dev libbz2-dev libffi-dev libfreetype6-dev libhdf5-dev liblapack-dev \
+RUN apt-get install -yqq build-essential cmake cuda-toolkit-11-2 curl gfortran git graphviz htop libatlas-base-dev \
+        libatlas3-base libblas-dev libbz2-dev libcudnn8 libffi-dev libfreetype6-dev libhdf5-dev liblapack-dev \
         liblapacke-dev liblzma-dev libncurses5-dev libpng-dev libreadline-dev libsqlite3-dev \
         libssl-dev libxml2-dev libxmlsec1-dev libxslt-dev llvm locales make nano nodejs pkg-config \
         tk-dev tmux tzdata wget xz-utils zlib1g-dev  && apt-get clean
@@ -65,6 +65,11 @@ RUN git clone https://code.googlesource.com/re2 /tmp/re2 && \
     ldconfig && \
     pip install -U fb-re2 && \ 
     rm -r /tmp/re2
+    
+RUN ln -s /usr/local/cuda-11.2 /usr/local/nvidia && \
+    ln -s /usr/local/cuda-11.2/targets/x86_64-linux/lib/libcublas.so.11 /usr/local/cuda-11.2/targets/x86_64-linux/lib/libcublas.so.10 && \
+    ln -s /usr/local/cuda-11.2/targets/x86_64-linux/lib/libcusolver.so.11 /usr/local/cuda-11.2/targets/x86_64-linux/lib/libcusolver.so.10
+
 
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
         dpkg-reconfigure --frontend=noninteractive locales
